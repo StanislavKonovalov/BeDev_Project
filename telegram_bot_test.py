@@ -1,6 +1,7 @@
 
 
 import requests 
+from sentences import search_sentence, bot_sentences
 
 TOKEN = "5796909930:AAEGeNbUQk4OBtJTNjpHaDaMgn99gKXaOX4"
 ROOT_URL = "https://api.telegram.org/bot"
@@ -18,12 +19,17 @@ def send_message(token, chat_id, message, root_url):
     print(req, chat_id, last_updated_id)
 
 
+
 while True:
     updates = get_updates(TOKEN, ROOT_URL)
     messages = updates['result']
+    
     for message in messages:
+        chat_id = message['message']['chat']['id']
+        message_text = message['message']['text']
         if message['update_id'] > last_updated_id:
-           send_message(TOKEN, message['message']['chat']['id'], message['message']['text'], ROOT_URL) 
+           result_message = search_sentence(message=message_text, sentences=bot_sentences)
+           send_message(TOKEN, chat_id, result_message, ROOT_URL) 
            last_updated_id = message['update_id']
            
 

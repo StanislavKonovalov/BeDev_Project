@@ -88,11 +88,11 @@ def search_sentence(level: int = None, message: str = None, sentences: list = No
     result_message = ""
 
     for x in sentences:
-        sentences_lvl = x.get("user_level")
+        # sentences_lvl = x.get("user_level")
         sentences_txt = x.get("bot_sentence")
-        if sentences_lvl <= level:
-            if message in sentences_txt:
-                matched_sentences.append(sentences_txt)
+        # if sentences_lvl <= level:
+        if message in sentences_txt:
+            matched_sentences.append(sentences_txt)
 
     if len(matched_sentences) == 0:
         result_message = "We did not find a suitable sentense"
@@ -103,11 +103,4 @@ def search_sentence(level: int = None, message: str = None, sentences: list = No
             result_message += "\n...\n" + y + "\n...\n"
 
     return result_message
-
-
-# Использование функции с аргументами, которые ввели
-print(search_sentence(sentences=bot_sentences, message="the", level=Expert))
-
-# Использование функции с аргументами пользователя
-print(search_sentence(level=user_lvl, sentences=bot_sentences, message=user_message))
 
